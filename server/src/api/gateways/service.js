@@ -1,8 +1,7 @@
 import { Gateway } from './model';
 
-const createGateway = (data) => {
-	const newGateway = new Gateway(data);
-	return newGateway.save();
+const gatewayService = {
+	async create(data) {},
 };
 
-export { createGateway };
+export { gatewayService };

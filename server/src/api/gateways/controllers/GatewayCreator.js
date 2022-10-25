@@ -1,3 +1,0 @@
-const GatewayCreator = () => {};
-
-export { GatewayCreator };
