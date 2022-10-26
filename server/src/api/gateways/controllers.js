@@ -3,7 +3,7 @@ import { service } from './service.js';
 const GetOne = async (req, res) => {
 	try {
 		const id = req.params.id;
-		res.json(await service.read(id));
+		res.json(await service.readone(id));
 	} catch (error) {
 		res.json({ status: 'error', error: error.message });
 	}
@@ -11,7 +11,7 @@ const GetOne = async (req, res) => {
 
 const GetAll = async (req, res) => {
 	try {
-		res.json(await service.read());
+		res.json(await service.readall());
 	} catch (error) {
 		res.json({ status: 'error', error: error.message });
 	}

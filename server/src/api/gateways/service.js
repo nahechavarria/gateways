@@ -2,8 +2,12 @@ import { Gateway } from './model.js';
 import { validateIP } from '../../utils/validateIP.js';
 
 const service = {
-	async read(id) {
-		if (!id) return Gateway.find() ?? [];
+	async readall() {
+		return Gateway.find() ?? [];
+	},
+
+	async readone(id) {
+		if (!id || typeof id !== 'string') throw new Error('Invalid id.');
 		return Gateway.findById(id);
 	},
 

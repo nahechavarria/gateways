@@ -32,7 +32,17 @@ describe('create', () => {
 
 describe('getAll', () => {
 	test('get gateways properly', async () => {
-		const result = await service.read();
+		const result = await service.readall();
 		expect(result instanceof Array).toBeTruthy();
+	});
+});
+
+describe('getOne', () => {
+	test('type not string id', async () => {
+		await expect(service.readone(123123)).rejects.toThrow('Invalid id.');
+	});
+
+	test('type anything else but a string', async () => {
+		await expect(service.readone(undefined)).rejects.toThrow('Invalid id.');
 	});
 });
