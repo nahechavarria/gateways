@@ -10,6 +10,11 @@ const service = {
 		const newGateway = new Gateway(data);
 		return newGateway.save();
 	},
+
+	async read(id) {
+		if (!id) return Gateway.find() ?? [];
+		return Gateway.findById(id);
+	},
 };
 
 export { service };
