@@ -38,4 +38,14 @@ const UpdateGateway = async (req, res) => {
 	}
 };
 
-export { GetOne, GetAll, CreateGateway, UpdateGateway };
+const DeleteGateway = async (req, res) => {
+	try {
+		const id = req.params.id;
+		await service.delete(id);
+		res.json({ status: 'success', response: 'Deleted successfully' });
+	} catch (error) {
+		res.json({ status: 'error', error: error.message });
+	}
+};
+
+export { GetOne, GetAll, CreateGateway, UpdateGateway, DeleteGateway };

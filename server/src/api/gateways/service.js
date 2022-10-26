@@ -29,6 +29,12 @@ const service = {
 		await Gateway.findByIdAndUpdate(id, { name, ip });
 		return Gateway.findById(id);
 	},
+
+	async delete(id) {
+		if (!id || typeof id !== 'string') throw new Error('Invalid id.');
+
+		return Gateway.findByIdAndDelete(id);
+	},
 };
 
 export { service };
