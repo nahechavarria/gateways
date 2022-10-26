@@ -1,5 +1,5 @@
-import { Gateway } from './model';
-import { validateIP } from '../../utils/validateIP';
+import { Gateway } from './model.js';
+import { validateIP } from '../../utils/validateIP.js';
 
 const service = {
 	async create(data) {
