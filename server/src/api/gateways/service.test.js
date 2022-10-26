@@ -29,3 +29,15 @@ describe('create', () => {
 		await expect(service.create('sss')).rejects.toThrow('Invalid input data.');
 	});
 });
+
+describe('getAll', () => {
+	test('get gateways properly', async () => {
+		const result = await service.getAll();
+		expect(result.length > 0).toBeTruthy();
+	});
+
+	test('no found gateways', async () => {
+		const result = await service.getAll();
+		expect(result.length === 0).toBeTruthy();
+	});
+});
