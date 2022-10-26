@@ -1,5 +1,14 @@
 import { service } from './service.js';
 
+const GetOne = async (req, res) => {
+	try {
+		const id = req.params.id;
+		res.json(await service.read(id));
+	} catch (error) {
+		res.json({ status: 'error', error: error.message });
+	}
+};
+
 const GetAll = async (req, res) => {
 	try {
 		res.json(await service.read());
@@ -18,4 +27,4 @@ const CreateGateway = async (req, res) => {
 	}
 };
 
-export { GetAll, CreateGateway };
+export { GetOne, GetAll, CreateGateway };

@@ -2,6 +2,11 @@ import { Gateway } from './model.js';
 import { validateIP } from '../../utils/validateIP.js';
 
 const service = {
+	async read(id) {
+		if (!id) return Gateway.find() ?? [];
+		return Gateway.findById(id);
+	},
+
 	async create(data) {
 		if (!data.name || !data.ip) throw new Error('Invalid input data.');
 		if (JSON.stringify(data) === '{}') throw new Error('Invalid input data.');
@@ -9,11 +14,6 @@ const service = {
 
 		const newGateway = new Gateway(data);
 		return newGateway.save();
-	},
-
-	async read(id) {
-		if (!id) return Gateway.find() ?? [];
-		return Gateway.findById(id);
 	},
 };
 
