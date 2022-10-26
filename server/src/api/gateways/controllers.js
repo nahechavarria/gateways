@@ -27,4 +27,15 @@ const CreateGateway = async (req, res) => {
 	}
 };
 
-export { GetOne, GetAll, CreateGateway };
+const UpdateGateway = async (req, res) => {
+	try {
+		const id = req.params.id;
+		const data = req.body;
+		const result = await service.update(id, data);
+		res.json(result);
+	} catch (error) {
+		res.json({ status: 'error', error: error.message });
+	}
+};
+
+export { GetOne, GetAll, CreateGateway, UpdateGateway };

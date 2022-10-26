@@ -19,6 +19,16 @@ const service = {
 		const newGateway = new Gateway(data);
 		return newGateway.save();
 	},
+
+	async update(id, data) {
+		if (!id || typeof id !== 'string') throw new Error('Invalid id.');
+		if (JSON.stringify(data) === '{}') throw new Error('Invalid input data.');
+		if (!validateIP(data.ip)) throw new Error('Invalid ip address.');
+
+		const { name, ip } = data;
+		await Gateway.findByIdAndUpdate(id, { name, ip });
+		return Gateway.findById(id);
+	},
 };
 
 export { service };

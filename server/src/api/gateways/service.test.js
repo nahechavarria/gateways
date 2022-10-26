@@ -48,16 +48,15 @@ describe('getOne', () => {
 });
 
 describe('update', () => {
-	test('get wrong id'),
-		async () => {
-			await expect(
-				service.update(234234, { name: 'asdasd', ip: '123.123.123' })
-			).rejects.toThrow('Invalid id.');
-		};
+	test('get wrong id', async () => {
+		await expect(
+			service.update(234234, { name: 'asdasd', ip: '123.123.123' })
+		).rejects.toThrow('Invalid id.');
+	});
 
 	test('get wrong data', async () => {
 		await expect(
-			service.update('asdasdasdasdasd123asdasd', { name: 234234, ip: 234234 })
+			service.update('asdasdasdasdasd123asdasd', {})
 		).rejects.toThrow('Invalid input data.');
 	});
 });
