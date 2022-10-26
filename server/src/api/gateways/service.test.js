@@ -60,3 +60,13 @@ describe('update', () => {
 		).rejects.toThrow('Invalid input data.');
 	});
 });
+
+describe('delete', () => {
+	test('type not string id', async () => {
+		await expect(service.delete(123123)).rejects.toThrow('Invalid id.');
+	});
+
+	test('type anything else but a string', async () => {
+		await expect(service.delete(undefined)).rejects.toThrow('Invalid id.');
+	});
+});
