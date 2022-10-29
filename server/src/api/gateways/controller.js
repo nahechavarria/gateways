@@ -48,6 +48,17 @@ const controller = {
 			res.json({ status: 'error', error: error.message });
 		}
 	},
+
+	async createDevice(req, res) {
+		try {
+			const id = req.params.id;
+			const { vendor, status } = req.body;
+			const result = await service.deviceCreator(id, vendor, status);
+			res.json({ status: 'success', response: result });
+		} catch (error) {
+			res.json({ status: 'error', error: error.message });
+		}
+	},
 };
 
 export { controller };

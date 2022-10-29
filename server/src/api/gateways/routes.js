@@ -9,5 +9,6 @@ gatewayRoutes.get('/', controller.getAll);
 gatewayRoutes.post('/', controller.createGateway);
 gatewayRoutes.put('/:id', controller.updateGateway);
 gatewayRoutes.delete('/:id', controller.deleteGateway);
+gatewayRoutes.put('/createdevice/:id', controller.createDevice);
 
 export { gatewayRoutes };
