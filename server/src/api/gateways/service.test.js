@@ -90,3 +90,17 @@ describe('create device', () => {
 		).rejects.toThrow('Invalid input data.');
 	});
 });
+
+describe('delete device', () => {
+	test('wrong gateway id', async () => {
+		await expect(service.deviceDeleter(123123123, 234234234)).rejects.toThrow(
+			'Invalid gateway id.'
+		);
+	});
+
+	test('wrong device id', async () => {
+		await expect(
+			service.deviceDeleter('123123123', '234234234')
+		).rejects.toThrow('Invalid device id.');
+	});
+});
