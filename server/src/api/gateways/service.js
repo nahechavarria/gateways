@@ -35,6 +35,8 @@ const service = {
 
 		return Gateway.findByIdAndDelete(id);
 	},
+
+	async createDevice(gatewayId, vendor, status) {},
 };
 
 export { service };

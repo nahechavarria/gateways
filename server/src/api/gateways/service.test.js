@@ -8,7 +8,7 @@ mongoose.connect('mongodb://localhost/gateways');
 describe('create', () => {
 	test('create gateway properly', async () => {
 		const result = await service.create({
-			name: 'calimete',
+			name: 'testGateway',
 			ip: '192.168.1.1',
 		});
 
@@ -68,5 +68,25 @@ describe('delete', () => {
 
 	test('type anything else but a string', async () => {
 		await expect(service.delete(undefined)).rejects.toThrow('Invalid id.');
+	});
+});
+
+describe('create device', () => {
+	test('wrong gateway id', async () => {
+		await expect(service.createDevice(123123, 'asd', 'asdasd')).rejects.toThrow(
+			'Invalid id.'
+		);
+	});
+
+	test('no string vendor', async () => {
+		await expect(
+			service.createDevice('asdasd234234', 234234, 'sdfsdf')
+		).rejects.toThrow('Invalid input data.');
+	});
+
+	test('invalid status', async () => {
+		await expect(
+			service.createDevice('asdasdasd234234', 'asdasd', 'asdasdas')
+		).rejects.toThrow('Invalid input data.');
 	});
 });
