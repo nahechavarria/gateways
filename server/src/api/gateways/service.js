@@ -35,6 +35,31 @@ const service = {
 
 		return Gateway.findByIdAndDelete(id);
 	},
+
+	async deviceCreator(gatewayId, vendor, status) {
+		if (!id || typeof id !== 'string') throw new Error('Invalid id.');
+		if (typeof vendor !== 'string') throw new Error('Invalid input data.');
+		if (status !== 'online' && status !== 'offline')
+			throw new Error(
+				'Invalid input data. Status valid values are "online" or "offline".'
+			);
+
+		const gateway = await Gateway.findById(gatewayId);
+
+		if (!gateway) throw new Error('No gateway found.');
+
+		const newDevice = {
+			uid: Date.now(),
+			vendor,
+			creation_date: new Date().toLocaleDateString(),
+			status,
+		};
+
+		gateway.devices.push(newDevice);
+		return Gateway.findById(gatewayId);
+	},
+
+	async deviceDeleter(gatewayId, uid) {},
 };
 
 export { service };

@@ -1,19 +1,14 @@
 import { Router } from 'express';
 
-import {
-	GetOne,
-	GetAll,
-	CreateGateway,
-	UpdateGateway,
-	DeleteGateway,
-} from './controllers.js';
+import { controller } from './controller.js';
 
 const gatewayRoutes = Router();
 
-gatewayRoutes.get('/:id', GetOne);
-gatewayRoutes.get('/', GetAll);
-gatewayRoutes.post('/', CreateGateway);
-gatewayRoutes.put('/:id', UpdateGateway);
-gatewayRoutes.delete('/:id', DeleteGateway);
+gatewayRoutes.get('/:id', controller.getOne);
+gatewayRoutes.get('/', controller.getAll);
+gatewayRoutes.post('/', controller.createGateway);
+gatewayRoutes.put('/:id', controller.updateGateway);
+gatewayRoutes.delete('/:id', controller.deleteGateway);
+gatewayRoutes.put('/createdevice/:id', controller.createDevice);
 
 export { gatewayRoutes };
