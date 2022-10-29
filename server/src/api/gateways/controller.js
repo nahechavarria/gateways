@@ -59,6 +59,17 @@ const controller = {
 			res.json({ status: 'error', error: error.message });
 		}
 	},
+
+	async deleteDevice(req, res) {
+		try {
+			const gatewayId = req.params.id;
+			const { uid } = req.body;
+			const result = await service.deviceDeleter(gatewayId, uid);
+			res.json({ status: 'success', response: result });
+		} catch (error) {
+			res.json({ status: 'error', error: error.message });
+		}
+	},
 };
 
 export { controller };

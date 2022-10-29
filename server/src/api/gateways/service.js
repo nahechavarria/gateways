@@ -25,6 +25,9 @@ const service = {
 		if (JSON.stringify(data) === '{}') throw new Error('Invalid input data.');
 		if (!validateIP(data.ip)) throw new Error('Invalid ip address.');
 
+		const gateway = await Gateway.findById(id);
+		if (!gateway) throw new Error('No gateway found.');
+
 		const { name, ip } = data;
 		await Gateway.findByIdAndUpdate(id, { name, ip });
 		return Gateway.findById(id);
@@ -37,7 +40,8 @@ const service = {
 	},
 
 	async deviceCreator(gatewayId, vendor, status) {
-		if (!id || typeof id !== 'string') throw new Error('Invalid id.');
+		if (!gatewayId || typeof gatewayId !== 'string')
+			throw new Error('Invalid id.');
 		if (typeof vendor !== 'string') throw new Error('Invalid input data.');
 		if (status !== 'online' && status !== 'offline')
 			throw new Error(
@@ -48,6 +52,9 @@ const service = {
 
 		if (!gateway) throw new Error('No gateway found.');
 
+		if (gateway.devices.length > 10)
+			throw new Error('Limit of devices excedeed.(10)');
+
 		const newDevice = {
 			uid: Date.now(),
 			vendor,
@@ -56,10 +63,36 @@ const service = {
 		};
 
 		gateway.devices.push(newDevice);
-		return Gateway.findById(gatewayId);
+		await Gateway.findByIdAndUpdate(gatewayId, gateway);
+		return gateway;
 	},
 
-	async deviceDeleter(gatewayId, uid) {},
+	async deviceDeleter(gatewayId, uid) {
+		if (!gatewayId || typeof gatewayId !== 'string')
+			throw new Error('Invalid gateway id.');
+
+		const regex = /^[0-9]*$/;
+		const onlyNumbers = regex.test(uid);
+		if (!uid || !onlyNumbers) throw new Error('Invalid device id.');
+
+		uid = parseInt(uid);
+
+		const gateway = await Gateway.findById(gatewayId);
+
+		if (!gateway) throw new Error('No gateway found.');
+
+		if (gateway.devices.some((el) => el.uid === uid)) {
+			for (let i = 0; i < gateway.devices.length; i++) {
+				if (gateway.devices[i].uid === uid) {
+					gateway.devices.splice(i, 1);
+				}
+			}
+		} else throw new Error('No device found.');
+
+		console.log(gateway);
+		await Gateway.findByIdAndUpdate(gatewayId, gateway);
+		return Gateway.findById(gatewayId);
+	},
 };
 
 export { service };

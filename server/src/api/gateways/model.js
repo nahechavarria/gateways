@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const deviceSchema = new mongoose.Schema({
-	UID: Number,
+	uid: Number,
 	vendor: String,
 	creation_date: String,
 	status: String,

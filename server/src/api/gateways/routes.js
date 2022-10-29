@@ -10,5 +10,6 @@ gatewayRoutes.post('/', controller.createGateway);
 gatewayRoutes.put('/:id', controller.updateGateway);
 gatewayRoutes.delete('/:id', controller.deleteGateway);
 gatewayRoutes.put('/createdevice/:id', controller.createDevice);
+gatewayRoutes.put('/deletedevice/:id', controller.deleteDevice);
 
 export { gatewayRoutes };
