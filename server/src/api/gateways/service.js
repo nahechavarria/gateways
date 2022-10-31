@@ -76,20 +76,19 @@ const service = {
 		if (!uid || !onlyNumbers) throw new Error('Invalid device id.');
 
 		uid = parseInt(uid);
-
+ 
 		const gateway = await Gateway.findById(gatewayId);
 
 		if (!gateway) throw new Error('No gateway found.');
 
-		if (gateway.devices.some((el) => el.uid === uid)) {
-			for (let i = 0; i < gateway.devices.length; i++) {
-				if (gateway.devices[i].uid === uid) {
-					gateway.devices.splice(i, 1);
-				}
-			}
-		} else throw new Error('No device found.');
+		const filteredDevices = gateway.devices.filter((device) => {
+			device.uid !== uid;
+		})
 
-		console.log(gateway);
+		if(filteredDevices === gateway.devices) throw new Error('No device found.');
+
+		gateway.devices = filteredDevices;
+		
 		await Gateway.findByIdAndUpdate(gatewayId, gateway);
 		return Gateway.findById(gatewayId);
 	},
