@@ -8,7 +8,9 @@ const service = {
 
 	async readone(id) {
 		if (!id || typeof id !== 'string') throw new Error('Invalid id.');
-		return Gateway.findById(id);
+		const gateway = await Gateway.findById(id);
+		if(!gateway) throw new Error('No gateway found.'); 
+		return gateway
 	},
 
 	async create(data) {
