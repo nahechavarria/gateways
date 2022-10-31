@@ -87,7 +87,7 @@ const service = {
 			return device.uid !== uid;
 		})
 
-		if(filteredDevices === gateway.devices) throw new Error('No device found.');
+		if(filteredDevices.length === gateway.devices.length) throw new Error('No device found.');
 
 		gateway.devices = filteredDevices;
 		
