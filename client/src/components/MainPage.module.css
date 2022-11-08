@@ -1,0 +1,43 @@
+.app {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.body {
+	height: 100%;
+	width: 100%;
+	max-width: 90%;
+}
+
+.cardsContainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+	gap: 1rem;
+}
+
+.buttonContainer {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+button {
+	border: none;
+	border-radius: 5px;
+	background-color: #7ff867;
+	padding: 1.5rem 2rem;
+}
+
+button:hover {
+	background-color: #50cc37;
+	cursor: pointer;
+}
+
+button:active {
+	border: 1px solid grey;
+}

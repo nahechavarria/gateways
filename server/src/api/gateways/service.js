@@ -9,8 +9,8 @@ const service = {
 	async readone(id) {
 		if (!id || typeof id !== 'string') throw new Error('Invalid id.');
 		const gateway = await Gateway.findById(id);
-		if(!gateway) throw new Error('No gateway found.'); 
-		return gateway
+		if (!gateway) throw new Error('No gateway found.');
+		return gateway;
 	},
 
 	async create(data) {
@@ -78,19 +78,20 @@ const service = {
 		if (!uid || !onlyNumbers) throw new Error('Invalid device id.');
 
 		uid = parseInt(uid);
- 
+
 		const gateway = await Gateway.findById(gatewayId);
 
 		if (!gateway) throw new Error('No gateway found.');
 
 		const filteredDevices = gateway.devices.filter((device) => {
 			return device.uid !== uid;
-		})
+		});
 
-		if(filteredDevices.length === gateway.devices.length) throw new Error('No device found.');
+		if (filteredDevices.length === gateway.devices.length)
+			throw new Error('No device found.');
 
 		gateway.devices = filteredDevices;
-		
+
 		await Gateway.findByIdAndUpdate(gatewayId, gateway);
 		return Gateway.findById(gatewayId);
 	},
